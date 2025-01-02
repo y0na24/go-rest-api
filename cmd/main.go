@@ -5,12 +5,14 @@ import (
 	configs "go-rest-api/configs"
 	auth "go-rest-api/internal/auth"
 	hello "go-rest-api/internal/hello"
+	"go-rest-api/pkg/db"
 	"net/http"
 )
 
 func main() {
 	mux := http.NewServeMux()
 	config := configs.GenerateConfig()
+	_ = db.NewDb(config)
 	auth.NewAuthHandler(mux, auth.AuthHandlerDeps{
 		Config: config,
 	})
